@@ -7,9 +7,8 @@ const   bodyParser      = require("body-parser"),
 
 // APP CONFIG
 mongoose.connect("mongodb://localhost:27017/blog_app");
-app.set("view engine", "ejs");
-app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(methodOveride("_method"));
 app.use(cors());
 
@@ -39,15 +38,22 @@ app.get("/blogs", function(req, res){
 });
 // CREATE ROUTE
 app.post("/blogs", function(req, res){
-    Blog.create(req.body.blog, function(err, newBlog){
-        if(err){
-            res.status(400).send();
-        } else {
-            res.status(200).send({
-                message: "blog created successfully",
-                blog: newBlog
-            });
-        }
+  const blog = {
+    title: req.body.title,
+    image: req.body.title,
+    body: req.body.body
+  }
+
+  console.log(req.body);
+  Blog.create(req.body , function(err, newBlog){
+       if(err){
+           res.status(400).send();
+       } else {
+           res.status(200).send({
+               message: "blog created successfully",
+               blog: newBlog
+           });
+       }
     });
 });
 // SHOW ROUTE
