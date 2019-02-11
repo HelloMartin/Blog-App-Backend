@@ -38,14 +38,7 @@ app.get("/blogs", function(req, res){
 });
 // CREATE ROUTE
 app.post("/blogs", function(req, res){
-  const blog = {
-    title: req.body.title,
-    image: req.body.title,
-    body: req.body.body
-  }
-
-  console.log(req.body);
-  Blog.create(req.body , function(err, newBlog){
+Blog.create(req.body , function(err, newBlog){
        if(err){
            res.status(400).send();
        } else {
@@ -84,7 +77,7 @@ app.get("/blogs/:id/edit", function(req, res){
 });
 // UPDATE ROUTE
 app.put("/blogs/:id", function(req, res){
-    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updatedBlog){
+    Blog.findByIdAndUpdate(req.params.id, req.body, function(err, updatedBlog){
         if(err){
             res.status(400).send();
         } else {
@@ -110,7 +103,8 @@ app.delete("/blogs/:id", function(req, res){
 
 // SERVER LISTEN
 app.listen(4300, 'localhost', function() {
-    console.log("******************");
-    console.log("SERVER IS RUNNING!");
-    console.log("******************");
+    console.log("######################################################");
+    console.log("----------------- SERVER IS RUNNING! -----------------");
+    console.log(Date());
+    console.log("######################################################");
 });
