@@ -90,7 +90,8 @@ app.put("/blogs/:id", function(req, res){
 });
 // DESTROY ROUTE
 app.delete("/blogs/:id", function(req, res){
-    Blog.findOneAndDelete(req.params.id, function(err){
+    Blog.findOneAndDelete({ _id: req.params.id }, function(err){
+      console.log(err);
         if(err){
             res.status(400).send();
         } else {
