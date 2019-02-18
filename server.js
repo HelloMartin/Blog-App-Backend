@@ -27,7 +27,9 @@ const Blog = mongoose.model("Blog", blogSchema);
 app.get("/blogs", function(req, res){
     Blog.find({}, function(err, blogs){
         if(err){
-            res.status(400).send();
+            res.status(400).send({
+              error: err
+            });
         } else {
             res.status(200).send({
                 message: "blogs retrieved successfully",
@@ -40,7 +42,9 @@ app.get("/blogs", function(req, res){
 app.post("/blogs", function(req, res){
 Blog.create(req.body , function(err, newBlog){
        if(err){
-           res.status(400).send();
+           res.status(400).send({
+             error: err
+           });
        } else {
            res.status(200).send({
                message: "blog created successfully",
@@ -53,7 +57,9 @@ Blog.create(req.body , function(err, newBlog){
 app.get("/blogs/:id", function(req, res){
     Blog.findById(req.params.id, function(err, foundBlog){
         if(err){
-            res.status(400).send();
+            res.status(400).send({
+              error: err
+            });
         } else {
             res.status(200).send({
                 message: "blog retrieved successfully",
@@ -66,7 +72,9 @@ app.get("/blogs/:id", function(req, res){
 app.get("/blogs/:id/edit", function(req, res){
     Blog.findById(req.params.id, function(err, foundBlog){
         if(err){
-            res.status(400).send();
+            res.status(400).send({
+              error: err
+            });
         } else {
             res.status(200).send({
                 message: "blog retrieved successfully",
@@ -79,7 +87,9 @@ app.get("/blogs/:id/edit", function(req, res){
 app.put("/blogs/:id", function(req, res){
     Blog.findByIdAndUpdate(req.params.id, req.body, function(err, updatedBlog){
         if(err){
-            res.status(400).send();
+            res.status(400).send({
+              error: err
+            });
         } else {
             res.status(200).send({
                 message: "blog updated successfully",
@@ -91,9 +101,10 @@ app.put("/blogs/:id", function(req, res){
 // DESTROY ROUTE
 app.delete("/blogs/:id", function(req, res){
     Blog.findOneAndDelete({ _id: req.params.id }, function(err){
-      console.log(err);
         if(err){
-            res.status(400).send();
+            res.status(400).send({
+              error: err
+            });
         } else {
             res.status(200).send({
                 message: "blog destroyed successfully"
