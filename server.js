@@ -22,6 +22,22 @@ const blogSchema = new mongoose.Schema({
 
 const Blog = mongoose.model("Blog", blogSchema);
 
+// LOGIN
+app.post("/login", function(req, res){
+  let username = req.body.username;
+  let password = req.body.password;
+  if (username === "Martin" && password === "1234") {
+    res.status(200).send({
+        message: "login successfully",
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik1hcnRpbiBWb2d0IiwiaWF0IjoxNTE2MjM5MDIyfQ.VykYmXFL8Sl8ERayjrpRg3prWFFhz3SLQAxJrQId6Bw'
+    });
+  } else {
+    res.status(401).send({
+      error: "bad credentials"
+    });
+  }
+})
+
 // ROUTES
 // INDEX ROUTE
 app.get("/blogs", function(req, res){
