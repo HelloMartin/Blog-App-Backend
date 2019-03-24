@@ -2,7 +2,6 @@ const 	express 	= require("express"),
     		router		= express.Router(),
     		Blog 	    = require("../models/blog");
 
-
 // ROUTES
 // INDEX ROUTE
 router.get("/", function(req, res){

@@ -1,20 +1,29 @@
 const 	express 	= require("express"),
-    		router		= express.Router();
+        router		= express.Router(),
+        User      = require("../models/user");
 
-// ROUTES
+//AUTHENTICATION
 router.post("/authenticate", function(req, res){
   let username = req.body.username;
   let password = req.body.password;
-  if (username === "Martin" && password === "password") {
-    res.status(200).send({
-        message: "login successfully",
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik1hcnRpbiBWb2d0IiwiaWF0IjoxNTE2MjM5MDIyfQ.VykYmXFL8Sl8ERayjrpRg3prWFFhz3SLQAxJrQId6Bw'
-    });
-  } else {
-    res.status(401).send({
-      error: "bad credentials"
-    });
-  }
-})
+  User.findOne({ username: username }, function(err, user){
+      if(err || user == null){
+          res.status(200).send({
+            error: "no user found"
+          });
+      } else {
+        if (user.username === username && user.password === password) {
+          res.status(200).send({
+              message: "login successfully",
+              token: user.token
+          });
+        } else {
+          res.status(200).send({
+            error: "bad credentials"
+          });
+        }
+      }
+  });
+});
 
 module.exports = router;

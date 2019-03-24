@@ -6,11 +6,12 @@ const   bodyParser      = require("body-parser"),
         app             = express();
 
 // MONGOOSE / MODEL CONFIG
-const   Blog            = require("./models/blog");
+const   Blog            = require("./models/blog"),
+        User            = require("./models/user");
 
 // ROUTES
-const 	blogRoutes	  	= require("./routes/blog");
-const   userRoutes      = require("./routes/user");
+const 	blogRoutes	  	= require("./routes/blog"),
+        userRoutes      = require("./routes/user");
 
 // APP CONFIG
 mongoose.connect("mongodb://localhost:27017/blog_app");
@@ -22,6 +23,8 @@ app.use(cors());
 // ROUTES
 app.use("/blogs", blogRoutes);
 app.use("/user", userRoutes);
+
+//User.create({"username":"tbz","password":"tbz","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InRieiIsImlhdCI6MTUxNjIzOTAyMn0.zcZHNiZSLjyrVXKoMPIAeB0OmWxu0Rpm_stGsMsJHpk"});
 
 // SERVER LISTEN
 app.listen(4300, 'localhost', function() {
