@@ -30,6 +30,7 @@ app.use("/user", userRoutes);
 app.listen(4300, 'localhost', function() {
     console.log("######################################################");
     console.log("----------------- SERVER IS RUNNING! -----------------");
+    console.log("------------------ BLOG-APP-BACKEND! -----------------");
     console.log(Date());
     console.log("######################################################");
 });
